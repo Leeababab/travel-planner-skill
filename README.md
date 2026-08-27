@@ -103,13 +103,8 @@ travel-planner-skill/
 │   ├── verify_links.py               # Automated URL and coordinate validator
 │   └── test_skill.py                 # End-to-end automated validation suite
 ├── references/
-│   ├── road_safety_rules.md          # Driving protocols (New Zealand & Japan)
-│   ├── biosecurity_customs.md        # Customs and biosecurity declaration guides
-│   ├── dining_reservation_guide.md   # Reservation mechanics (Tabelog, TableCheck, OMAKASE)
+│   ├── dining_reservation_guide.md   # Reservation mechanics & platform evaluation matrix
 │   └── cloud_run_deployment.md       # Google Cloud Run deployment runbook
-├── examples/
-│   ├── osaka_2026/trip_spec.yaml     # 5-Day Kansai reference implementation
-│   └── new_zealand_2026/trip_spec.yaml # 11-Day South Island reference implementation
 ├── tests/fixtures/
 │   └── sample_trip.yaml              # Deterministic test fixture
 ├── install.sh                        # Symlink installer for Antigravity environment
@@ -149,9 +144,7 @@ python3 scripts/test_skill.py
 
 ### 6. Reference Knowledge Bases
 
-* **[Road Safety & Mountain Pass Protocol](references/road_safety_rules.md)**: New Zealand single-lane bridge priorities, mountain pass engine braking (M1/M2), and Japan expressway ETC operations.
-* **[Biosecurity & Quarantine Guidelines](references/biosecurity_customs.md)**: New Zealand MPI clean footwear fast-track procedures and Japan Visit Japan Web digital customs workflows.
-* **[Dining Reservation Architecture](references/dining_reservation_guide.md)**: Tabelog ranking analysis, TableCheck deposit protocols, and OMAKASE.in monthly allocation cycles.
+* **[Dining Reservation Architecture](references/dining_reservation_guide.md)**: Platform ranking analysis, deposit protocols, and reservation allocation cycles.
 * **[Cloud Run Deployment Runbook](references/cloud_run_deployment.md)**: Multi-service container compilation, Google Artifact Registry management, and regional HTTPS termination.
 
 ---
@@ -164,10 +157,10 @@ python3 scripts/test_skill.py
 
 ### 1. 系統綜述
 
-**Travel Planner & Zakka Techo System** 是專為 Antigravity 設計的工程級旅行規劃與出版系統。本套件將複雜的跨國行程設計、交通路權後勤、米其林預訂時程與預算編制，抽象為嚴格型別定義的標準化工作流程。
+**Travel Planner & Zakka Techo System** 是專為 Antigravity 設計的工程級旅行規劃與出版系統。本套件將複雜的跨國行程設計、交通路權後勤、預訂時程與預算編制，抽象為嚴格型別定義的標準化工作流程。
 
 系統能將結構化行程宣告檔（`trip_spec.yaml`）一鍵編譯為兩套高度同步的交付成果：
-1. **出版級 A4 日系手帳（PDF）**：採用日系雜貨手帳排版美學、嚴格 CSS Paged Media 分頁控制、點陣底紙質感，並整合米其林/名店鑑賞與奢華住宿專欄。
+1. **出版級 A4 日系手帳（PDF）**：採用日系雜貨手帳排版美學、嚴格 CSS Paged Media 分頁控制、點陣底紙質感，並整合美食鑑賞與住宿專欄。
 2. **三模態空間互動網頁（SPA）**：基於 Leaflet 構建的單頁應用程式，具備即時互動地圖、在線手帳翻閱器與 50/50 雙欄對照分析視圖。
 
 ---
@@ -234,13 +227,8 @@ travel-planner-skill/
 │   ├── verify_links.py               # 外部 URL / 座標連通性檢測工具
 │   └── test_skill.py                 # 自動化端到端測試套件
 ├── references/
-│   ├── road_safety_rules.md          # 紐西蘭與日本自駕交通手冊
-│   ├── biosecurity_customs.md        # 生物安全與入境海關申報規範
-│   ├── dining_reservation_guide.md   # Tabelog、TableCheck、OMAKASE 搶位指南
+│   ├── dining_reservation_guide.md   # 線上預約平台與時程指南
 │   └── cloud_run_deployment.md       # Google Cloud Run 生產部署指引
-├── examples/
-│   ├── osaka_2026/trip_spec.yaml     # 日本關西 5 天 4 夜參考資料集
-│   └── new_zealand_2026/trip_spec.yaml # 紐西蘭南島 11 天 10 夜參考資料集
 ├── tests/fixtures/
 │   └── sample_trip.yaml              # 測試專用標準資料集
 ├── install.sh                        # Antigravity 全域軟連結安裝腳本
@@ -280,9 +268,7 @@ python3 scripts/test_skill.py
 
 ### 6. 後勤與專業知識庫
 
-* **[道路交通守則與山道駕駛指引](references/road_safety_rules.md)**：紐西蘭單線橋（Single-Lane Bridge）路權判讀、長下坡引擎煞車（M1/M2）操作；日本高速公路 ETC 系統與路權規範。
-* **[生物安全與海關申報規範](references/biosecurity_customs.md)**：紐西蘭 MPI 戶外裝備申報流程（乾淨鞋底快速通關）；日本 Visit Japan Web 數位申報指引。
-* **[餐廳預訂與評分指南](references/dining_reservation_guide.md)**：日本 Tabelog 評分標準、TableCheck 擔保機制與 OMAKASE.in 放位時程表。
+* **[餐廳預訂與評分指南](references/dining_reservation_guide.md)**：評分判讀標準、擔保機制與放位時程規劃。
 * **[Google Cloud Run 部署指引](references/cloud_run_deployment.md)**：多專案容器構建、Artifact Registry 管理與全球低延遲部署命令。
 
 ---
