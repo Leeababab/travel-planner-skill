@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ trip.title }} • 雲端互動地圖 ＆ 精裝手帳 App</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Zen+Maru+Gothic:wght@500;700;900&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body, html { width: 100%; height: 100%; font-family: 'Noto Sans TC', 'Zen Maru Gothic', sans-serif; background-color: #faf7f2; color: #332c2b; overflow: hidden; }
+
+#app-container { display: flex; flex-direction: column; width: 100vw; height: 100vh; }
+
+header {
+  background: #ffffff;
+  border-bottom: 2px solid #e8decb;
+  padding: 8px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.header-brand { display: flex; align-items: center; gap: 10px; }
+.brand-handwritten { font-family: 'Caveat', cursive; font-size: 24px; font-weight: 700; color: #0f766e; }
+.brand-title { font-size: 15px; font-weight: 900; color: #332c2b; letter-spacing: 0.5px; }
+.brand-sub { font-size: 11px; color: #7d6e68; font-weight: 700; }
+
+.mode-switch-group { display: flex; background: #f4ece1; border: 1.5px solid #dcd2c4; border-radius: 8px; padding: 3px; gap: 3px; }
+.mode-btn { background: transparent; border: none; padding: 5px 12px; border-radius: 6px; font-size: 11.5px; font-weight: 800; color: #665; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 5px; }
+.mode-btn.active { background: #0f766e; color: #ffffff; box-shadow: 0 2px 4px rgba(15,118,110,0.25); }
+
+.pdf-link-btn { background: #f0fdfa; color: #0f766e; border: 1.5px solid #99f6e4; border-radius: 6px; padding: 5px 12px; font-size: 12px; font-weight: 800; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; }
+.pdf-link-btn:hover { background: #0f766e; color: #ffffff; }
+
+#main-view { display: flex; flex-grow: 1; position: relative; overflow: hidden; height: calc(100vh - 54px); }
+
+#map-section { display: flex; flex-grow: 1; width: 100%; height: 100%; position: relative; }
+#sidebar { width: 380px; background: #fcf9f5; border-right: 2px solid #e8decb; display: flex; flex-direction: column; z-index: 900; box-shadow: 2px 0 10px rgba(0,0,0,0.04); flex-shrink: 0; }
+
+.tabs-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 8px 10px; background: #f4ece1; border-bottom: 1.5px solid #ded3c3; flex-shrink: 0; }
+.tab-btn { background: #ffffff; border: 1.5px solid #dcd2c4; border-radius: 6px; padding: 6px 3px; font-size: 10.5px; font-weight: 800; color: #554844; cursor: pointer; text-align: center; transition: all 0.2s; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tab-btn.full-width { grid-column: 1 / -1; padding: 7px 8px; font-size: 11px; }
+.tab-btn.active { background: #0f766e; color: #ffffff; border-color: #0f766e; }
+
+.route-summary-bar { padding: 10px 12px; background: #faf6f0; border-bottom: 1.5px solid #ded3c3; display: flex; flex-direction: column; gap: 3px; flex-shrink: 0; }
+.route-summary-title { font-size: 12.5px; font-weight: 900; color: #0f766e; display: flex; justify-content: space-between; align-items: center; }
+.route-badge { font-size: 10.5px; font-weight: 800; color: #ffffff; background: #0f766e; padding: 2px 6px; border-radius: 4px; }
+.route-summary-desc { font-size: 10.5px; color: #665; line-height: 1.4; }
+
+.spot-list { flex-grow: 1; overflow-y: auto; padding: 10px 12px; }
+.spot-card { background: #ffffff; border: 1.5px solid #e8dfd2; border-radius: 8px; padding: 10px 12px; margin-bottom: 10px; cursor: pointer; transition: all 0.2s; }
+.spot-card:hover { border-color: #0f766e; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.08); }
+.spot-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+.spot-title { font-size: 13px; font-weight: 900; color: #332c2b; }
+.spot-badge { font-size: 10px; font-weight: 800; padding: 2px 6px; border-radius: 4px; }
+.badge-teal { background: #f0fdfa; color: #0f766e; border: 1px solid #99f6e4; }
+.badge-blue { background: #f0f9ff; color: #0284c7; border: 1px solid #bae6fd; }
+.badge-green { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
+.badge-gold { background: #fffbeb; color: #d97706; border: 1px solid #fde68a; }
+.badge-red { background: #fff1f2; color: #e11d48; border: 1px solid #fecdd3; }
+.spot-desc { font-size: 11.5px; color: #665; line-height: 1.4; margin-bottom: 8px; }
+.spot-actions { display: flex; gap: 6px; }
+.btn-sm { font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 4px; text-decoration: none; }
+.btn-gmaps { background: #f0f9ff; color: #0284c7; border: 1px solid #bae6fd; }
+
+#map { flex-grow: 1; height: 100%; background: #e5e3df; }
+.map-floating-ctrl { position: absolute; top: 12px; right: 12px; z-index: 800; display: flex; flex-direction: column; gap: 6px; }
+.float-btn { background: #ffffff; border: 1.5px solid #dcd2c4; border-radius: 6px; padding: 6px 12px; font-size: 11px; font-weight: 800; color: #332c2b; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+.float-btn:hover { background: #0f766e; color: #ffffff; border-color: #0f766e; }
+
+#journal-section { display: none; flex-grow: 1; width: 100%; height: 100%; background: #f4eee6; overflow-y: auto; padding: 16px 20px 40px; flex-direction: column; align-items: center; }
+.journal-controls-wrapper { position: sticky; top: 0; z-index: 500; display: flex; flex-direction: column; align-items: center; gap: 8px; margin-bottom: 16px; width: 100%; }
+.journal-nav-bar { background: rgba(255, 255, 255, 0.96); border: 1.5px solid #ded3c3; border-radius: 30px; padding: 4px 8px; display: flex; gap: 4px; flex-wrap: wrap; justify-content: center; }
+.j-pill { background: #faf6f0; border: 1px solid #dcd2c4; border-radius: 20px; padding: 4px 9px; font-size: 11px; font-weight: 800; color: #554844; cursor: pointer; text-decoration: none; }
+.j-pill:hover { background: #0f766e; color: #ffffff; }
+
+.journal-page-wrapper { max-width: 900px; width: 100%; margin-bottom: 28px; display: flex; flex-direction: column; align-items: center; }
+.journal-page-img { width: 100%; height: auto; border-radius: 8px; border: 2px solid #e8dfd2; box-shadow: 0 6px 20px rgba(0,0,0,0.12); background: #fff; }
+
+#main-view.split-mode #map-section { width: 50% !important; flex-grow: 0; }
+#main-view.split-mode #journal-section { display: flex !important; width: 50% !important; border-left: 2px solid #e8decb; }
+
+.custom-marker { display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; border: 2px solid #ffffff; color: #ffffff; font-weight: 900; font-size: 11px; box-shadow: 0 3px 8px rgba(0,0,0,0.3); cursor: pointer; }
+.marker-teal { background: #0f766e; }
+.marker-blue { background: #0284c7; }
+.marker-green { background: #16a34a; }
+.marker-gold { background: #d97706; }
+.marker-red { background: #e11d48; }
+</style>
+</head>
+<body>
+
+<div id="app-container">
+  <header>
+    <div class="header-brand">
+      <span class="brand-handwritten">{{ trip.destination }}</span>
+      <div>
+        <div class="brand-title">{{ trip.title }} • 雲端互動地圖 ＆ 精裝手帳</div>
+        <div class="brand-sub">{{ trip.dates.summary }}</div>
+      </div>
+    </div>
+
+    <div class="mode-switch-group">
+      <button class="mode-btn active" id="btn-mode-map" onclick="setAppMode('map')">🗺️ 互動地圖</button>
+      <button class="mode-btn" id="btn-mode-journal" onclick="setAppMode('journal')">📖 手帳在線預覽</button>
+      <button class="mode-btn" id="btn-mode-split" onclick="setAppMode('split')">📑 雙欄對照</button>
+    </div>
+
+    <div style="display: flex; gap: 8px; align-items: center;">
+      <a href="{{ trip.trip_id }}_Travel_Journal.pdf" target="_blank" class="pdf-link-btn" download>📥 下載精裝手帳 PDF</a>
+    </div>
+  </header>
+
+  <div id="main-view">
+    <div id="map-section">
+      <aside id="sidebar">
+        <div class="tabs-container">
+          <button class="tab-btn full-width active" onclick="switchDayTab('all')">🌟 全域路線總覽</button>
+          {% for day in trip.days %}
+          <button class="tab-btn" onclick="switchDayTab('d{{ day.day_number }}')">D{{ day.day_number }} {{ day.title[:6] }}</button>
+          {% endfor %}
+        </div>
+
+        <div class="route-summary-bar">
+          <div class="route-summary-title">
+            <span id="tab-route-title">{{ trip.title }}</span>
+            <span class="route-badge" id="tab-route-badge">{{ trip.dates.total_days }} 天</span>
+          </div>
+          <div class="route-summary-desc" id="tab-route-desc">{{ trip.subtitle }}</div>
+        </div>
+
+        <div class="spot-list" id="spot-list-container"></div>
+      </aside>
+
+      <div class="map-floating-ctrl">
+        <button class="float-btn" onclick="quickZoom('all')">🔍 全景視圖</button>
+        {% for b in trip.map_settings.quick_zoom_buttons %}
+        <button class="float-btn" onclick="map.flyTo([{{ b.lat }}, {{ b.lng }}], {{ b.zoom }}, {duration: 1.2})">{{ b.label }}</button>
+        {% endfor %}
+      </div>
+
+      <div id="map"></div>
+    </div>
+
+    <div id="journal-section">
+      <div class="journal-controls-wrapper">
+        <div class="journal-nav-bar">
+          <a href="#j-page-1" class="j-pill">P1 封面總覽</a>
+          {% for day in trip.days %}
+          <a href="#j-page-{{ loop.index + 1 }}" class="j-pill">P{{ loop.index + 1 }} D{{ day.day_number }}</a>
+          {% endfor %}
+          <a href="#j-page-final" class="j-pill">P{{ trip.days | length + 2 }} 裝備預算</a>
+        </div>
+      </div>
+
+      <div class="journal-page-wrapper" id="j-page-1">
+        <img src="pages/page_1.png" class="journal-page-img" alt="Page 1" />
+      </div>
+      {% for day in trip.days %}
+      <div class="journal-page-wrapper" id="j-page-{{ loop.index + 1 }}">
+        <img src="pages/page_{{ loop.index + 1 }}.png" class="journal-page-img" alt="Page {{ loop.index + 1 }}" />
+      </div>
+      {% endfor %}
+      <div class="journal-page-wrapper" id="j-page-final">
+        <img src="pages/page_{{ trip.days | length + 2 }}.png" class="journal-page-img" alt="Final Page" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var spotsData = {{ spots_json | safe }};
+var dayRoutes = {{ routes_json | safe }};
+
+var map = L.map('map', {
+  center: [{{ trip.map_settings.center_lat }}, {{ trip.map_settings.center_lng }}],
+  zoom: {{ trip.map_settings.default_zoom }},
+  zoomControl: false
+});
+
+L.control.zoom({ position: 'bottomright' }).addTo(map);
+
+L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+  attribution: '&copy; CartoDB &copy; OpenStreetMap',
+  maxZoom: 19
+}).addTo(map);
+
+var markersLayer = L.layerGroup().addTo(map);
+var routeLayer = L.layerGroup().addTo(map);
+
+function createCustomMarker(badge, id) {
+  return L.divIcon({
+    className: 'custom-div-icon',
+    html: '<div class="custom-marker marker-' + badge + '">' + id + '</div>',
+    iconSize: [28, 28],
+    iconAnchor: [14, 14]
+  });
+}
+
+function renderMapSpots(dayFilter) {
+  markersLayer.clearLayers();
+  routeLayer.clearLayers();
+
+  var spotListContainer = document.getElementById('spot-list-container');
+  spotListContainer.innerHTML = '';
+
+  var routeInfo = dayRoutes[dayFilter] || dayRoutes['all'];
+  if (routeInfo) {
+    document.getElementById('tab-route-title').innerText = routeInfo.title || '';
+    document.getElementById('tab-route-badge').innerText = routeInfo.badge || '';
+    document.getElementById('tab-route-desc').innerText = routeInfo.desc || '';
+
+    if (routeInfo.coords && routeInfo.coords.length > 0) {
+      L.polyline(routeInfo.coords, {
+        color: routeInfo.color || '#0f766e',
+        weight: (dayFilter === 'all' ? 3.5 : 5),
+        opacity: (dayFilter === 'all' ? 0.85 : 0.95),
+        lineCap: 'round',
+        lineJoin: 'round'
+      }).addTo(routeLayer);
+    }
+  }
+
+  var bounds = [];
+
+  spotsData.forEach(function(spot) {
+    if (dayFilter === 'all' || spot.day === dayFilter) {
+      var marker = L.marker([spot.lat, spot.lng], {
+        icon: createCustomMarker(spot.badge || 'teal', spot.id)
+      });
+
+      var popupContent = '<div class="popup-inner">' +
+        '<h4>#' + spot.id + ' ' + spot.name + '</h4>' +
+        '<p>' + spot.description + '</p>' +
+        '<div style="margin-top: 6px;"><a href="' + spot.gmaps_url + '" target="_blank" class="btn-sm btn-gmaps">📍 Google Maps 導航</a></div></div>';
+
+      marker.bindPopup(popupContent);
+      markersLayer.addLayer(marker);
+      bounds.push([spot.lat, spot.lng]);
+
+      var card = document.createElement('div');
+      card.className = 'spot-card';
+      card.onclick = function() {
+        map.flyTo([spot.lat, spot.lng], 13, { duration: 1.2 });
+        marker.openPopup();
+      };
+
+      card.innerHTML = '<div class="spot-header">' +
+        '<span class="spot-title">#' + spot.id + ' ' + spot.name + '</span>' +
+        '<span class="spot-badge badge-' + (spot.badge || 'teal') + '">' + (spot.badge_text || spot.category) + '</span>' +
+        '</div>' +
+        '<div class="spot-desc">' + spot.description + '</div>' +
+        '<div class="spot-actions">' +
+        '<a href="' + spot.gmaps_url + '" target="_blank" class="btn-sm btn-gmaps" onclick="event.stopPropagation()">Google Maps 導航 ↗</a>' +
+        '</div>';
+
+      spotListContainer.appendChild(card);
+    }
+  });
+
+  if (bounds.length > 0) {
+    map.fitBounds(bounds, { padding: [60, 60], maxZoom: 13 });
+  }
+}
+
+function switchDayTab(day) {
+  document.querySelectorAll('.tab-btn').forEach(function(btn) { btn.classList.remove('active'); });
+  if (event && event.target) { event.target.classList.add('active'); }
+  renderMapSpots(day);
+}
+
+function quickZoom(target) {
+  if (target === 'all') {
+    map.flyTo([{{ trip.map_settings.center_lat }}, {{ trip.map_settings.center_lng }}], {{ trip.map_settings.default_zoom }}, { duration: 1.2 });
+    switchDayTab('all');
+  }
+}
+
+function setAppMode(mode) {
+  var mainView = document.getElementById('main-view');
+  var mapSection = document.getElementById('map-section');
+  var journalSection = document.getElementById('journal-section');
+
+  document.querySelectorAll('.mode-btn').forEach(function(btn) { btn.classList.remove('active'); });
+
+  if (mode === 'map') {
+    document.getElementById('btn-mode-map').classList.add('active');
+    mainView.className = '';
+    mapSection.style.display = 'flex';
+    journalSection.style.display = 'none';
+    setTimeout(function() { map.invalidateSize(); }, 200);
+  } else if (mode === 'journal') {
+    document.getElementById('btn-mode-journal').classList.add('active');
+    mainView.className = '';
+    mapSection.style.display = 'none';
+    journalSection.style.display = 'flex';
+  } else if (mode === 'split') {
+    document.getElementById('btn-mode-split').classList.add('active');
+    mainView.className = 'split-mode';
+    mapSection.style.display = 'flex';
+    journalSection.style.display = 'flex';
+    setTimeout(function() { map.invalidateSize(); }, 200);
+  }
+}
+
+renderMapSpots('all');
+</script>
+</body>
+</html>

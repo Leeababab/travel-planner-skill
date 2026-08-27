@@ -1,0 +1,185 @@
+trip_id: "new_zealand_2026"
+title: "2026 紐西蘭南島純淨自駕旅行手帳"
+subtitle: "基督城・米佛峽灣・庫克山胡克谷・特卡波觀星 11天10夜終極自駕大環線"
+destination: "紐西蘭南島"
+dates:
+  start_date: "2026-11-12"
+  end_date: "2026-11-22"
+  total_days: 11
+  total_nights: 10
+  summary: "2026.11.12 - 11.22 (11天10夜)"
+flights:
+  outbound:
+    - flight_number: "QF128"
+      airline: "澳洲航空"
+      origin: "香港 HKG"
+      destination: "雪梨 SYD"
+      departure_time: "19:25"
+      arrival_time: "07:55 (+1)"
+      duration: "9h30m"
+      transit_info: "雪梨轉機 2h25m"
+    - flight_number: "QF137"
+      airline: "澳洲航空"
+      origin: "雪梨 SYD"
+      destination: "基督城 CHC"
+      departure_time: "10:20"
+      arrival_time: "15:25"
+      duration: "3h05m"
+      transit_info: "直飛基督城"
+  inbound:
+    - flight_number: "QF138"
+      airline: "澳洲航空"
+      origin: "基督城 CHC"
+      destination: "雪梨 SYD"
+      departure_time: "06:00"
+      arrival_time: "07:35"
+      duration: "3h35m"
+      transit_info: "清晨航班"
+    - flight_number: "QF127"
+      airline: "澳洲航空"
+      origin: "雪梨 SYD"
+      destination: "香港 HKG"
+      departure_time: "11:15"
+      arrival_time: "17:50"
+      duration: "9h35m"
+      transit_info: "雪梨轉機 3h40m"
+transport:
+  mode: "self_drive"
+  vehicle_details: "基督城機場取還 4WD/AWD 休旅車（含 0-Excess 全險與車窗碎石險）"
+  emergency_phone: "111 (紐西蘭警察/救護/消防直撥)"
+map_settings:
+  center_lat: -44.2
+  center_lng: 169.8
+  default_zoom: 7
+  quick_zoom_buttons:
+    - id: "chc"
+      label: "✈️ 基督城"
+      lat: -43.53
+      lng: 172.63
+      zoom: 12
+    - id: "wanaka"
+      label: "🌲 瓦納卡"
+      lat: -44.69
+      lng: 169.12
+      zoom: 12
+    - id: "queenstown"
+      label: "🚠 皇后鎮"
+      lat: -45.03
+      lng: 168.66
+      zoom: 12
+    - id: "milford"
+      label: "🌊 米佛峽灣"
+      lat: -44.67
+      lng: 167.92
+      zoom: 12
+    - id: "mtcook"
+      label: "🏔️ 庫克山"
+      lat: -43.73
+      lng: 170.10
+      zoom: 12
+    - id: "tekapo"
+      label: "🌌 特卡波"
+      lat: -44.00
+      lng: 170.48
+      zoom: 12
+days:
+  - day_number: 2
+    date: "2026.11.13"
+    weekday: "週五"
+    title: "抵達基督城 ➔ Pak'nSave 大採購 ➔ 雅芳河市集"
+    summary: "15:25 抵達出示登山鞋走申報通道，領取 4WD 車輛，採購 10L 水與保冷箱"
+    driving_info: "行車 25 km • 45m"
+    route_polyline:
+      - [-43.4876, 172.5373]
+      - [-43.5312, 172.5934]
+      - [-43.5338, 172.6335]
+    timeline:
+      - time: "15:25-16:30"
+        title: "抵達基督城機場 (CHC) ➔ 生物安全申報"
+        description: "出示刷驗乾淨登山鞋走申報通道，快速放行。"
+        badge: "機場取車"
+        gmaps_url: "https://maps.google.com/?q=Christchurch+Airport"
+      - time: "17:30-18:45"
+        title: "Pak'nSave Riccarton 超市大採購"
+        description: "採購 10L 水、保冷箱、Bushman 沙蠅防護劑、早餐食材。"
+        badge: "後勤補給"
+        gmaps_url: "https://maps.google.com/?q=PaknSave+Riccarton+Christchurch"
+    spots:
+      - id: "1"
+        name: "基督城國際機場 (CHC)"
+        category: "交通樞紐"
+        badge_color: "teal"
+        badge_text: "機場取車"
+        lat: -43.4876
+        lng: 172.5373
+        description: "領取 4WD 車輛，核對 0-Excess 全險。"
+        gmaps_url: "https://maps.google.com/?q=Christchurch+Airport"
+      - id: "2"
+        name: "Pak'nSave Riccarton 超市"
+        category: "後勤採購"
+        badge_color: "gold"
+        badge_text: "批發超市"
+        lat: -43.5312
+        lng: 172.5934
+        description: "南島最平批發超市，採購飲用水與長途自駕物資。"
+        gmaps_url: "https://maps.google.com/?q=PaknSave+Riccarton+Christchurch"
+    food_spotlight:
+      title: "Riverside Market 河濱市集"
+      badge: "水岸美食"
+      recommendations: "Dimitris 希臘烤肉捲餅、Canterbury 精釀啤酒。"
+      tips: "室內挑高市集，營業至 21:00，欣賞 20:45 落日。"
+    hotel_spotlight:
+      title: "The George Christchurch"
+      badge: "五星名邸"
+      features: "面向海格利公園與雅芳河，附設免費停車場。"
+      amenities: "奢華大理石衛浴、頂級羽絨床寢。"
+
+budget:
+  currency: "NZD / HKD"
+  items:
+    - category: "國際機票 (Qantas)"
+      estimated_cost: "~HKD 8,500 /人"
+      notes: "HKG ⇄ SYD ⇄ CHC"
+    - category: "4WD SUV 租車+全險"
+      estimated_cost: "~NZD 1,200 (10天)"
+      notes: "0-Excess 全險與車窗碎石險"
+    - category: "精選住宿 (10晚)"
+      estimated_cost: "~NZD 2,600"
+      notes: "隱士飯店、特卡波、機場飯店"
+    - category: "米佛峽灣巡航+螢火蟲"
+      estimated_cost: "~NZD 280 /人"
+      notes: "RealNZ 官方套票"
+
+packing_checklist:
+  categories:
+    - category_name: "📄 必備證件與數位憑證"
+      items:
+        - "護照正本 (有效期限 > 6 個月)"
+        - "NZeTA 電子簽證憑證 ＋ IVL"
+        - "國際駕照 (IDP) ＋ 駕照正本"
+        - "4WD SUV 租車確認單"
+    - category_name: "🥾 戶外健行與防護裝備"
+      items:
+        - "登山鞋 (徹底刷洗乾淨無泥土)"
+        - "防水防風衝鋒衣、保暖羽絨"
+        - "Bushman DEET 40% 沙蠅防護劑"
+        - "偏光太陽眼鏡、高倍防曬乳 (SPF50+)"
+    - category_name: "🚗 自駕與電力配件"
+      items:
+        - "車載手機導航支架"
+        - "紐西蘭八字形插頭轉接器"
+        - "Spark / One NZ 5G eSIM"
+
+official_reservations:
+  - item_name: "RealNZ 米佛峽灣自然生態巡航"
+    timing: "出發前 60 天"
+    booking_url: "https://www.realnz.com/en/experiences/cruises/milford-sound-nature-cruises/"
+    notes: "預訂 D7 10:30 自然生態巡航"
+  - item_name: "RealNZ 蒂阿瑙螢火蟲洞"
+    timing: "出發前 60 天"
+    booking_url: "https://www.realnz.com/en/experiences/glowworm-caves/te-anau-glowworm-caves/"
+    notes: "預訂 D6 17:00 場次"
+  - item_name: "庫克山 The Hermitage Hotel"
+    timing: "出發前 6-9 個月"
+    booking_url: "https://www.hermitage.co.nz/"
+    notes: "國家公園核心百年飯店"

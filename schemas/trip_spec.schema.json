@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TravelPlanSpecification",
+  "description": "Standardized schema for travel itineraries, Zakka Techo PDF generation, and Leaflet Triple-View interactive map SPAs.",
+  "type": "object",
+  "required": ["trip_id", "title", "destination", "dates", "flights", "days", "budget", "packing_checklist"],
+  "properties": {
+    "trip_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_-]+$",
+      "description": "Unique slug for the trip, used in URLs and file naming."
+    },
+    "title": { "type": "string" },
+    "subtitle": { "type": "string" },
+    "destination": { "type": "string" },
+    "dates": {
+      "type": "object",
+      "required": ["start_date", "end_date", "total_days", "total_nights"],
+      "properties": {
+        "start_date": { "type": "string" },
+        "end_date": { "type": "string" },
+        "total_days": { "type": "integer" },
+        "total_nights": { "type": "integer" },
+        "summary": { "type": "string" }
+      }
+    },
+    "flights": {
+      "type": "object",
+      "required": ["outbound", "inbound"],
+      "properties": {
+        "outbound": { "type": "array" },
+        "inbound": { "type": "array" }
+      }
+    },
+    "transport": { "type": "object" },
+    "map_settings": { "type": "object" },
+    "days": { "type": "array" },
+    "budget": { "type": "object" },
+    "packing_checklist": { "type": "object" },
+    "official_reservations": { "type": "array" }
+  }
+}

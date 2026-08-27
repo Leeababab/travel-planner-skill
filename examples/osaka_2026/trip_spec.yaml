@@ -1,0 +1,165 @@
+trip_id: "osaka_2026"
+title: "2026 日本關西夏日慢活旅行手帳"
+subtitle: "大阪麗思卡爾頓・USJ環球影城・京都納涼床和牛壽喜燒 5天4夜奢華慢活版"
+destination: "日本關西"
+dates:
+  start_date: "2026-08-18"
+  end_date: "2026-08-22"
+  total_days: 5
+  total_nights: 4
+  summary: "2026.08.18 - 08.22 (5天4夜)"
+flights:
+  outbound:
+    - flight_number: "UO688"
+      airline: "香港快運"
+      origin: "香港 HKG"
+      destination: "大阪關西 KIX"
+      departure_time: "14:55"
+      arrival_time: "19:35"
+      duration: "3h40m"
+      transit_info: "直飛"
+  inbound:
+    - flight_number: "HB341"
+      airline: "大灣區航空"
+      origin: "大阪關西 KIX"
+      destination: "香港 HKG"
+      departure_time: "14:30"
+      arrival_time: "17:00"
+      duration: "3h30m"
+      transit_info: "直飛"
+transport:
+  mode: "public_transit"
+  vehicle_details: "西梅田樞紐・南海電鐵 Rapi:t・JR 環球直通線・阪急京都線特急"
+  emergency_phone: "110 (警察) / 119 (救護)"
+map_settings:
+  center_lat: 34.6997
+  center_lng: 135.4925
+  default_zoom: 11
+  quick_zoom_buttons:
+    - id: "umeda"
+      label: "🏨 麗思梅田"
+      lat: 34.6997
+      lng: 135.4925
+      zoom: 15
+    - id: "usj"
+      label: "🎢 USJ影城"
+      lat: 34.6654
+      lng: 135.4323
+      zoom: 14
+    - id: "kyoto"
+      label: "⛩️ 京都清水"
+      lat: 34.9949
+      lng: 135.7850
+      zoom: 14
+    - id: "namba"
+      label: "🐟 難波黑門"
+      lat: 34.6653
+      lng: 135.5064
+      zoom: 14
+days:
+  - day_number: 1
+    date: "2026.08.18"
+    weekday: "週二"
+    title: "香港啟程 ➔ 關西抵達 ➔ 麗思卡爾頓 ➔ 松阪牛燒肉 M"
+    summary: "南海 Rapi:t 奔馳直達，入住西梅田五星名邸，宵夜品嚐日本三大和牛"
+    driving_info: "南海電鐵特急 38 分鐘"
+    route_polyline:
+      - [34.4347, 135.2442]
+      - [34.6655, 135.5015]
+      - [34.6997, 135.4925]
+      - [34.6687, 135.5022]
+    timeline:
+      - time: "19:35-20:30"
+        title: "降落關西國際機場 (KIX) ➔ 入境審查 ＆ 領取行李"
+        description: "出示 Visit Japan Web QR Code 快速通關，搭乘南海電鐵 Rapi:t 特急直達難波。"
+        badge: "入境通關"
+        gmaps_url: "https://maps.google.com/?q=Kansai-Airport+Station"
+      - time: "21:00"
+        title: "入住大阪麗思卡爾頓酒店 (The Ritz-Carlton, Osaka)"
+        description: "辦理入住，享受 18 世紀英式貴族奢華客房。"
+        badge: "五星名邸"
+        gmaps_url: "https://maps.google.com/?q=The+Ritz-Carlton+Osaka"
+      - time: "21:45"
+        title: "松阪牛燒肉 M (法善寺橫丁店) 宵夜盛宴"
+        description: "品嚐松阪牛極上六部位拼盤與特選厚切牛舌。"
+        badge: "頂級和牛"
+        gmaps_url: "https://maps.google.com/?q=Matsusakagyu+Yakiniku+M+Hozenji+Yokocho+Osaka"
+        booking_url: "https://matsusaka-projects.com/english/shop/houzenji/"
+    spots:
+      - id: "1"
+        name: "大阪麗思卡爾頓酒店"
+        category: "奢華住宿"
+        badge_color: "gold"
+        badge_text: "4晚連住"
+        lat: 34.6997
+        lng: 135.4925
+        description: "西梅田核心五星名邸，18世紀英式莊園風格。"
+        gmaps_url: "https://maps.google.com/?q=The+Ritz-Carlton+Osaka"
+      - id: "2"
+        name: "松阪牛燒肉 M (法善寺橫丁店)"
+        category: "和牛燒肉"
+        badge_color: "red"
+        badge_text: "極上和牛"
+        lat: 34.6687
+        lng: 135.5022
+        description: "日本三大和牛全牛拼盤，石疊小巷夜遊散策。"
+        gmaps_url: "https://maps.google.com/?q=Matsusakagyu+Yakiniku+M+Hozenji+Yokocho+Osaka"
+        booking_url: "https://matsusaka-projects.com/english/shop/houzenji/"
+    food_spotlight:
+      title: "松阪牛燒肉 M (法善寺橫丁店)"
+      badge: "日本三大和牛"
+      recommendations: "松阪牛極上六部位拼盤 (Ribeye, Sirloin, Tenderloin)、特選厚切牛舌。"
+      tips: "出發前 1 個月於官方線上預約 21:00 晚市席位。"
+    hotel_spotlight:
+      title: "The Ritz-Carlton, Osaka"
+      badge: "五星名邸"
+      features: "西梅田核心地下街直通 JR 大阪站，四晚連住免搬行李。"
+      amenities: "大理石雙洗手台衛浴、Asprey 頂級備品、利木津巴士直達門口。"
+
+budget:
+  currency: "HKD / JPY"
+  items:
+    - category: "往返國際機票 (2人)"
+      estimated_cost: "~HKD 5,800"
+      notes: "香港快運 UO688 + 大灣區 HB341"
+    - category: "麗思卡爾頓酒店 (4晚連住)"
+      estimated_cost: "~JPY 320,000"
+      notes: "西梅田奢華客房"
+    - category: "USJ 門票 + 環球特快快通"
+      estimated_cost: "~JPY 48,000 (2人)"
+      notes: "8/20 瑪利歐+咚奇剛快通"
+    - category: "美饌饗宴 (和牛/米其林/壽喜燒)"
+      estimated_cost: "~JPY 90,000"
+      notes: "松阪牛M、春駒、奧丹、モリタ屋"
+
+packing_checklist:
+  categories:
+    - category_name: "📄 必備證件與數位憑證"
+      items:
+        - "護照正本 (有效期限 > 6 個月)"
+        - "Visit Japan Web 入境/申報 QR"
+        - "機票行程單與麗思卡爾頓確認憑證"
+        - "USJ 門票 ＆ 環球 Express 快通 QR"
+    - category_name: "💳 金融支付與 3C 電力"
+      items:
+        - "iPhone 綁定 Suica / ICOCA 交通卡"
+        - "實體雙幣信用卡 (VISA/Mastercard)"
+        - "日圓現金 4-5萬円 (春駒/麵助必備)"
+        - "10,000-20,000mAh 行動電源"
+    - category_name: "☀️ 盛夏防暑與常備藥品"
+      items:
+        - "手持靜音強風扇 / 涼感頸環"
+        - "UV 遮陽晴雨折疊傘 / 遮陽帽"
+        - "GATSBY 冰爽涼感濕紙巾"
+        - "休足時間腿部舒緩貼 (USJ/京都必備)"
+        - "太田胃散 ＆ 止痛退燒 EVE"
+
+official_reservations:
+  - item_name: "松阪牛燒肉 M (法善寺橫丁店)"
+    timing: "出發前 30 天 00:00"
+    booking_url: "https://matsusaka-projects.com/english/shop/houzenji/"
+    notes: "預訂 8/18 21:45 晚市席位"
+  - item_name: "先斗町 モリタ屋 (和牛壽喜燒納涼床)"
+    timing: "出發前 60 天"
+    booking_url: "https://moritaya-kyoto.co.jp/restaurant/kiyamachi/"
+    notes: "預訂 8/21 17:00 鴨川納涼床"

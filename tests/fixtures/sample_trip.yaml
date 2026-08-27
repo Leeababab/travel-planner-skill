@@ -1,0 +1,180 @@
+trip_id: "tokyo_sample_2026"
+title: "2026 東京經典雙日漫遊手帳"
+subtitle: "澀谷・新宿・淺草・銀座 雙日精華散策"
+destination: "日本東京"
+dates:
+  start_date: "2026-09-01"
+  end_date: "2026-09-02"
+  total_days: 2
+  total_nights: 1
+  summary: "2026.09.01 - 09.02 (2天1夜)"
+flights:
+  outbound:
+    - flight_number: "CX500"
+      airline: "國泰航空"
+      origin: "香港 HKG"
+      destination: "東京成田 NRT"
+      departure_time: "08:50"
+      arrival_time: "14:15"
+      duration: "4h25m"
+      transit_info: "直飛"
+  inbound:
+    - flight_number: "CX501"
+      airline: "國泰航空"
+      origin: "東京成田 NRT"
+      destination: "香港 HKG"
+      departure_time: "15:30"
+      arrival_time: "19:40"
+      duration: "5h10m"
+      transit_info: "直飛"
+transport:
+  mode: "public_transit"
+  vehicle_details: "JR 山手線 + 東京地鐵 48小時券"
+  emergency_phone: "110 (警察) / 119 (救護)"
+map_settings:
+  center_lat: 35.6812
+  center_lng: 139.7671
+  default_zoom: 12
+  quick_zoom_buttons:
+    - id: "shibuya"
+      label: "🚦 澀谷"
+      lat: 35.6595
+      lng: 139.7005
+      zoom: 14
+    - id: "asakusa"
+      label: "🏮 淺草"
+      lat: 35.7147
+      lng: 139.7966
+      zoom: 14
+days:
+  - day_number: 1
+    date: "2026.09.01"
+    weekday: "週二"
+    title: "抵達東京 ➔ 澀谷十字路口 ➔ SHIBUYA SKY"
+    summary: "成田特快 N'EX 直達澀谷，登頂俯瞰東京夜景"
+    driving_info: "大眾運輸 45 分鐘"
+    route_polyline:
+      - [35.7719, 140.3929]
+      - [35.6595, 139.7005]
+      - [35.6580, 139.7016]
+    timeline:
+      - time: "14:15-15:30"
+        title: "抵達成田機場 (NRT) ➔ 領取 JR Pass / 儲值 Suica"
+        description: "搭乘 N'EX 成田特快直達澀谷站。"
+        badge: "交通直達"
+        gmaps_url: "https://maps.google.com/?q=Narita+Airport"
+      - time: "17:00-19:00"
+        title: "SHIBUYA SKY 360度露天展望台"
+        description: "日落前 1 小時登頂，欣賞富士山剪影與百萬點燈夜景。"
+        badge: "人氣地標"
+        gmaps_url: "https://maps.google.com/?q=Shibuya+Sky"
+        booking_url: "https://www.shibuya-scramble-square.com/sky/"
+    spots:
+      - id: "1"
+        name: "SHIBUYA SKY 展望台"
+        category: "景觀地標"
+        badge_color: "teal"
+        badge_text: "日落夜景"
+        lat: 35.6580
+        lng: 139.7016
+        description: "澀谷最高露天觀景台，俯瞰十字路口全景。"
+        gmaps_url: "https://maps.google.com/?q=Shibuya+Sky"
+        booking_url: "https://www.shibuya-scramble-square.com/sky/"
+    food_spotlight:
+      title: "挽肉と米 (澀谷店)"
+      badge: "炭烤漢堡排"
+      recommendations: "現絞現烤純牛肉漢堡排搭配羽釜現煮白米飯與生生食級雞蛋。"
+      tips: "當日早晨 09:00 前往現場領取當日整理券。"
+    hotel_spotlight:
+      title: "Cerulean Tower Tokyu Hotel"
+      badge: "五星名邸"
+      features: "澀谷站步行 5 分鐘，高空客房直面東京鐵塔與富士山。"
+      amenities: "室內恆溫泳池、頂級 Executive Lounge、24h 禮賓服務。"
+
+  - day_number: 2
+    date: "2026.09.02"
+    weekday: "週三"
+    title: "淺草寺雷門 ➔ 銀座漫步 ➔ 機場返港"
+    summary: "古寺祈福與銀座選品，搭乘 Skyliner 前往成田返港"
+    driving_info: "大眾運輸 1 小時"
+    route_polyline:
+      - [35.6595, 139.7005]
+      - [35.7147, 139.7966]
+      - [35.6719, 139.7658]
+      - [35.7719, 140.3929]
+    timeline:
+      - time: "09:00-11:00"
+        title: "淺草寺雷門 ＆ 仲見世商店街"
+        description: "參拜觀音古寺，品嚐人形燒與現烤仙貝。"
+        badge: "傳統文化"
+        gmaps_url: "https://maps.google.com/?q=Sensoji+Asakusa"
+      - time: "12:00-13:30"
+        title: "銀座 GINZA SIX ＆ 蔦屋書店"
+        description: "漫步銀座中央通，參觀屋頂花園與文藝設計選品。"
+        badge: "潮流購物"
+        gmaps_url: "https://maps.google.com/?q=Ginza+Six"
+    spots:
+      - id: "2"
+        name: "淺草寺雷門"
+        category: "歷史古蹟"
+        badge_color: "red"
+        badge_text: "必訪古剎"
+        lat: 35.7147
+        lng: 139.7966
+        description: "東京都內最古老寺廟，大紅燈籠標誌地標。"
+        gmaps_url: "https://maps.google.com/?q=Sensoji+Asakusa"
+    food_spotlight:
+      title: "淺草 今半 (別館 壽喜燒)"
+      badge: "百年老舖"
+      recommendations: "明治 28 年創立，極上黑毛和牛壽喜燒御膳。"
+      tips: "午市提供高 CP 值特選商業午餐，建議提前預訂。"
+    hotel_spotlight:
+      title: "Novotel / Airport Hotel"
+      badge: "返程便利"
+      features: "直通 Skyliner 與成田特快，快速辦理退房託運。"
+      amenities: "行李稱重服務、航廈免費接駁巴士。"
+
+budget:
+  currency: "HKD / JPY"
+  items:
+    - category: "往返國際機票"
+      estimated_cost: "~HKD 4,200 /人"
+      notes: "國泰航空直飛"
+    - category: "五星精選住宿 (1晚)"
+      estimated_cost: "~JPY 42,000"
+      notes: "Cerulean Tower 奢華房型"
+    - category: "交通票券 (N'EX + 地鐵券)"
+      estimated_cost: "~JPY 6,000 /人"
+      notes: "Suica 儲值及機場快線"
+    - category: "餐飲美食與體驗"
+      estimated_cost: "~JPY 25,000 /人"
+      notes: "今半壽喜燒、SHIBUYA SKY 門票"
+
+packing_checklist:
+  categories:
+    - category_name: "📄 必備證件與數位憑證"
+      items:
+        - "護照正本 (有效期限 > 6 個月)"
+        - "Visit Japan Web 入境/申報 QR Code"
+        - "電子機票行程單與飯店確認憑證"
+    - category_name: "💳 金融支付與 3C 電力"
+      items:
+        - "iPhone 錢包綁定 Suica / PASMO 交通卡"
+        - "雙幣實體信用卡 (VISA / Mastercard)"
+        - "日圓現鈔 (小店/票券機備用)"
+        - "10,000mAh 認證行動電源 ＋ 充電線"
+    - category_name: "☀️ 個人護理與隨身雜物"
+      items:
+        - "好走吸震球鞋 (日行萬步首選)"
+        - "常備藥品 (止痛藥、腸胃藥、OK繃)"
+        - "折疊環保購物袋"
+
+official_reservations:
+  - item_name: "SHIBUYA SKY 展望台門票"
+    timing: "出發前 30 天 00:00"
+    booking_url: "https://www.shibuya-scramble-square.com/sky/"
+    notes: "鎖定日落前 1 小時熱門時段"
+  - item_name: "淺草 今半 壽喜燒午餐"
+    timing: "出發前 14 天"
+    booking_url: "https://www.asagusa-imahan.co.jp/"
+    notes: "特選黑毛和牛御膳"

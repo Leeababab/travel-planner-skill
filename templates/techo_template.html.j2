@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<title>{{ trip.title }} • 日系手帳大字版</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Zen+Maru+Gothic:wght@500;700;900&display=swap');
+
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  body {
+    font-family: 'Noto Sans TC', 'Zen Maru Gothic', sans-serif;
+    color: #332c2b;
+    background-color: #f7f3ed;
+    line-height: 1.55;
+    font-size: 10px;
+  }
+
+  .page {
+    width: 210mm;
+    height: 297mm;
+    page-break-after: always;
+    page-break-inside: avoid;
+    position: relative;
+    padding: 11mm 13mm;
+    background-color: #faf7f2;
+    background-image: url("data:image/svg+xml,%3Csvg width='15' height='15' viewBox='0 0 15 15' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='7.5' cy='7.5' r='1.15' fill='%23c9b7a0'/%3E%3C/svg%3E");
+    background-size: 15px 15px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px dashed #ded2c1;
+    padding-bottom: 4px;
+    margin-bottom: 6px;
+  }
+
+  .page-header-title {
+    font-size: 11.5px;
+    font-weight: 900;
+    color: #7d6e68;
+    letter-spacing: 0.8px;
+  }
+
+  .page-number {
+    font-family: 'Caveat', cursive;
+    font-size: 17px;
+    font-weight: 700;
+    color: #0f766e;
+  }
+
+  .page-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1.5px dashed #ded2c1;
+    padding-top: 4px;
+    margin-top: 5px;
+    font-size: 9px;
+    color: #8c7d75;
+  }
+
+  .card {
+    background: #ffffff;
+    border: 2px solid #e8dfd2;
+    border-radius: 9px;
+    padding: 8px 11px;
+    margin-bottom: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    position: relative;
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    border-bottom: 1.5px solid #f2ece1;
+    padding-bottom: 3px;
+  }
+
+  .card-title {
+    font-size: 12.5px;
+    font-weight: 900;
+    color: #332c2b;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .washi-tape {
+    position: absolute;
+    height: 12px;
+    opacity: 0.85;
+    z-index: 10;
+    border-left: 2px dashed rgba(255,255,255,0.6);
+    border-right: 2px dashed rgba(255,255,255,0.6);
+  }
+  .tape-teal { background: #99f6e4; }
+  .tape-blue { background: #b8d5e5; }
+  .tape-green { background: #cce2cb; }
+  .tape-gold { background: #fae3bd; }
+  .tape-pink { background: #f4c2c2; }
+
+  .stamp {
+    display: inline-block;
+    padding: 2px 7px;
+    text-transform: uppercase;
+    font-size: 8.5px;
+    font-weight: 900;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+  }
+  .stamp-teal { border: 1.5px solid #0f766e; color: #0f766e; background: #f0fdfa; }
+  .stamp-blue { border: 1.5px solid #0284c7; color: #0284c7; background: #f0f9ff; }
+  .stamp-green { border: 1.5px solid #16a34a; color: #16a34a; background: #f0fdf4; }
+  .stamp-gold { border: 1.5px solid #d97706; color: #d97706; background: #fffbeb; }
+  .stamp-red { border: 1.5px solid #e11d48; color: #e11d48; background: #fff1f2; }
+
+  .day-pill {
+    padding: 2.5px 9px;
+    border-radius: 10px;
+    font-weight: 900;
+    font-size: 10.5px;
+    color: #ffffff;
+    display: inline-block;
+  }
+  .day-pill-teal { background: #0f766e; }
+  .day-pill-blue { background: #0284c7; }
+  .day-pill-green { background: #16a34a; }
+  .day-pill-gold { background: #d97706; }
+  .day-pill-red { background: #e11d48; }
+
+  .timeline-row {
+    display: flex;
+    margin-bottom: 5px;
+    align-items: flex-start;
+  }
+  .time-col {
+    width: 78px;
+    flex-shrink: 0;
+    font-weight: 900;
+    color: #0f766e;
+    font-size: 10px;
+    padding-top: 1px;
+  }
+  .desc-col {
+    flex-grow: 1;
+    font-size: 10px;
+    color: #443c3a;
+  }
+  .desc-title {
+    font-weight: 800;
+    color: #332c2b;
+    font-size: 10.5px;
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .badge {
+    font-size: 9px;
+    font-weight: 800;
+    padding: 1.5px 6px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    line-height: 1.3;
+  }
+  .badge-teal { background: #f0fdfa; color: #0f766e; border: 1px solid #99f6e4; }
+  .badge-blue { background: #f0f9ff; color: #0284c7; border: 1px solid #bae6fd; }
+  .badge-green { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
+  .badge-gold { background: #fffbeb; color: #d97706; border: 1px solid #fde68a; }
+  .badge-red { background: #fff1f2; color: #e11d48; border: 1px solid #fecdd3; }
+
+  .btn-link {
+    font-size: 9px;
+    font-weight: 800;
+    padding: 1.5px 5px;
+    border-radius: 3px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+  }
+  .btn-map { background: #f0f9ff; color: #0284c7; border: 1px solid #bae6fd; }
+  .btn-res { background: #f0fdfa; color: #0f766e; border: 1px solid #99f6e4; }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+    margin-top: 4px;
+  }
+  .info-box {
+    background: #faf6f0;
+    border: 1.5px solid #ded3c3;
+    border-radius: 6px;
+    padding: 5px 8px;
+    font-size: 9.5px;
+  }
+  .info-box-title {
+    font-weight: 900;
+    color: #0f766e;
+    margin-bottom: 2px;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .spotlight-card {
+    background: #ffffff;
+    border: 2px solid #e8decb;
+    border-radius: 8px;
+    padding: 7px 10px;
+    margin-top: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .spotlight-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px dashed #ded3c3;
+    padding-bottom: 3px;
+    margin-bottom: 3px;
+  }
+  .spotlight-title {
+    font-size: 11px;
+    font-weight: 900;
+    color: #0f766e;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  table.budget-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9.5px;
+    margin-top: 4px;
+  }
+  table.budget-table th {
+    background: #f2ece1;
+    color: #332c2b;
+    padding: 4.5px 6px;
+    font-weight: 900;
+    border: 1px solid #ded3c3;
+    text-align: left;
+  }
+  table.budget-table td {
+    padding: 4px 6px;
+    border: 1px solid #e8dfd2;
+    color: #443c3a;
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== PAGE 1: 封面總覽 ＆ 行程架構 ==================== -->
+<div class="page" id="page-1">
+  <div class="page-header">
+    <div class="page-header-title">[ SECTION 01 ] {{ trip.title }} • 總策劃手帳</div>
+    <div class="page-number">Page 01</div>
+  </div>
+
+  <div style="text-align: center; margin: 2px 0 6px;">
+    <div style="font-family: 'Caveat', cursive; font-size: 26px; font-weight: 700; color: #0f766e;">{{ trip.subtitle }}</div>
+    <h1 style="font-size: 20px; font-weight: 900; color: #332c2b; letter-spacing: 1.5px; margin-top: 1px;">{{ trip.title }}</h1>
+    <div style="font-size: 11px; color: #7d6e68; font-weight: 700; margin-top: 2px;">{{ trip.dates.summary }}</div>
+  </div>
+
+  <!-- Flight Timetable -->
+  <div class="card" style="position: relative;">
+    <div class="washi-tape tape-gold" style="top: -6px; right: 28px; width: 75px; transform: rotate(2deg);"></div>
+    <div class="card-header">
+      <div class="card-title">✈️ 往返航班時刻 ＆ 交通資訊</div>
+      <span class="stamp stamp-teal">已排查確認</span>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;">
+      <div class="info-box">
+        <div class="info-box-title">去程航班</div>
+        {% for f in trip.flights.outbound %}
+        • <b>{{ f.flight_number }}</b> {{ f.origin }} ➔ {{ f.destination }} [{{ f.departure_time }} ➔ {{ f.arrival_time }}] ({{ f.duration }})<br>
+        {% endfor %}
+      </div>
+      <div class="info-box">
+        <div class="info-box-title">回程航班</div>
+        {% for f in trip.flights.inbound %}
+        • <b>{{ f.flight_number }}</b> {{ f.origin }} ➔ {{ f.destination }} [{{ f.departure_time }} ➔ {{ f.arrival_time }}] ({{ f.duration }})<br>
+        {% endfor %}
+      </div>
+    </div>
+    {% if trip.transport %}
+    <div style="margin-top: 5px; font-size: 9.5px; color: #554d4a; background: #faf6f0; padding: 4px 8px; border-radius: 4px; border: 1px solid #ded3c3;">
+      <b>交通方式</b>：{{ trip.transport.vehicle_details }} | <b>緊急電話</b>：{{ trip.transport.emergency_phone }}
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- Official Reservations Table -->
+  {% if trip.official_reservations %}
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">🎟️ 核心景點與預約排查表</div>
+      <span class="stamp stamp-blue">在線預訂</span>
+    </div>
+    <table class="budget-table">
+      <thead>
+        <tr>
+          <th style="width: 28%;">項目名稱</th>
+          <th style="width: 22%;">建議時程</th>
+          <th style="width: 20%;">官方預約</th>
+          <th style="width: 30%;">攻略備忘</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in trip.official_reservations %}
+        <tr>
+          <td><b>{{ r.item_name }}</b></td>
+          <td>{{ r.timing }}</td>
+          <td><a href="{{ r.booking_url }}" class="btn-link btn-res" target="_blank">預約直達 ↗</a></td>
+          <td>{{ r.notes }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endif %}
+
+  <div class="page-footer">
+    <span>{{ trip.title | upper }}</span>
+    <span>PAGE 01</span>
+  </div>
+</div>
+
+<!-- ==================== DAILY PAGES ==================== -->
+{% for day in trip.days %}
+<div class="page" id="page-{{ loop.index + 1 }}">
+  <div class="page-header">
+    <div class="page-header-title">[ DAY 0{{ day.day_number }} ] {{ day.date }} ({{ day.weekday }}) • {{ day.title }}</div>
+    <div class="page-number">Page 0{{ loop.index + 1 }}</div>
+  </div>
+
+  <div class="card" style="position: relative;">
+    <div class="washi-tape tape-teal" style="top: -6px; right: 28px; width: 75px; transform: rotate(1.5deg);"></div>
+    <div class="card-header">
+      <div class="card-title"><span class="day-pill day-pill-teal">DAY {{ day.day_number }}</span> {{ day.date }} ({{ day.weekday }}) {{ day.title }}</div>
+      {% if day.driving_info %}
+      <span class="badge badge-teal">{{ day.driving_info }}</span>
+      {% endif %}
+    </div>
+
+    {% for item in day.timeline %}
+    <div class="timeline-row">
+      <div class="time-col">{{ item.time }}</div>
+      <div class="desc-col">
+        <div class="desc-title">
+          <span>{{ item.title }}</span>
+          <div>
+            {% if item.gmaps_url %}
+            <a href="{{ item.gmaps_url }}" class="btn-link btn-map" target="_blank">📍地圖</a>
+            {% endif %}
+            {% if item.booking_url %}
+            <a href="{{ item.booking_url }}" class="btn-link btn-res" target="_blank">🎟️預訂</a>
+            {% endif %}
+          </div>
+        </div>
+        <div>{{ item.description }}</div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Food & Hotel Spotlight -->
+  <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px;">
+    {% if day.food_spotlight %}
+    <div class="spotlight-card">
+      <div class="spotlight-header">
+        <span class="spotlight-title">🍽️ D{{ day.day_number }} 美食鑑賞 • {{ day.food_spotlight.title }}</span>
+        <span class="stamp stamp-gold">{{ day.food_spotlight.badge }}</span>
+      </div>
+      <div style="font-size: 9px; line-height: 1.4; color: #443c3a;">
+        • <b>推薦品項</b>：{{ day.food_spotlight.recommendations }}<br>
+        • <b>攻略備忘</b>：{{ day.food_spotlight.tips }}
+      </div>
+    </div>
+    {% endif %}
+
+    {% if day.hotel_spotlight %}
+    <div class="spotlight-card">
+      <div class="spotlight-header">
+        <span class="spotlight-title">🏨 D{{ day.day_number }} 飯店鑑賞 • {{ day.hotel_spotlight.title }}</span>
+        <span class="stamp stamp-teal">{{ day.hotel_spotlight.badge }}</span>
+      </div>
+      <div style="font-size: 9px; line-height: 1.4; color: #443c3a;">
+        • <b>環境亮點</b>：{{ day.hotel_spotlight.features }}<br>
+        • <b>設施配備</b>：{{ day.hotel_spotlight.amenities }}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+  <div class="page-footer">
+    <span>{{ trip.title | upper }}</span>
+    <span>PAGE 0{{ loop.index + 1 }}</span>
+  </div>
+</div>
+{% endfor %}
+
+<!-- ==================== FINAL PAGE: 裝備清單 ＆ 預算記帳 ==================== -->
+<div class="page" id="page-final">
+  <div class="page-header">
+    <div class="page-header-title">[ FINAL ] 隨身物品 Check-list ＆ 旅費預算總表</div>
+    <div class="page-number">Page Final</div>
+  </div>
+
+  <div class="card" style="position: relative;">
+    <div class="washi-tape tape-green" style="top: -6px; right: 20px; width: 75px;"></div>
+    <div class="card-header">
+      <span class="card-title">🧳 行前準備 ＆ 隨身攜帶物品 Check-list</span>
+      <span class="stamp stamp-green">PACKING CHECKLIST</span>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat({{ trip.packing_checklist.categories | length }}, 1fr); gap: 6px; margin-top: 4px;">
+      {% for cat in trip.packing_checklist.categories %}
+      <div style="background: #faf6f0; border: 1.5px solid #ded3c3; border-radius: 6px; padding: 6px 8px;">
+        <div style="font-size: 10px; font-weight: 900; color: #0f766e; margin-bottom: 2px;">{{ cat.category_name }}</div>
+        <div style="font-size: 9px; color: #332c2b; line-height: 1.45;">
+          {% for item in cat['items'] %}
+          [ ] {{ item }}<br>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Budget Table -->
+  <div class="card" style="position: relative;">
+    <div class="washi-tape tape-gold" style="top: -6px; left: 30px; width: 80px;"></div>
+    <div class="card-header">
+      <div class="card-title">💰 旅費預算與支出記帳表 ({{ trip.budget.currency }})</div>
+      <span class="stamp stamp-gold">預算核算</span>
+    </div>
+    <table class="budget-table">
+      <thead>
+        <tr>
+          <th style="width: 28%;">類別項目</th>
+          <th style="width: 28%;">預估金額</th>
+          <th style="width: 20%;">實際支出</th>
+          <th style="width: 24%;">備註說明</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for b in trip.budget['items'] %}
+        <tr>
+          <td><b>{{ b.category }}</b></td>
+          <td>{{ b.estimated_cost }}</td>
+          <td></td>
+          <td>{{ b.notes }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-footer">
+    <span>{{ trip.title | upper }}</span>
+    <span>END OF JOURNAL</span>
+  </div>
+</div>
+
+</body>
+</html>
